@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c357b5f3-6f1c-48e6-9322-232c7fade8a7</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>LexicalAnalyzer.py</StartupFile>
+    <StartupFile>lexicalanalyzer.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -26,8 +26,13 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LexicalAnalyzer.py" />
+    <Compile Include="config\localization.py" />
+    <Compile Include="config\__init__.py" />
+    <Compile Include="lexicalanalyzer.py" />
     <Compile Include="pyera.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="config\" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
