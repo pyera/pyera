@@ -1,9 +1,9 @@
 ﻿import ply.lex, ply.yacc
 import numpy
 
-##############################
-#    Exception Definitions
-##############################
+###########################################################
+#                   Exception definitions
+###########################################################
 
 class LexerError(SyntaxError):
     def __init__(self, t, message):
@@ -20,9 +20,9 @@ class ParserError(SyntaxError):
         self.msg = message
 
 
-##############################
-#        PLY lex part
-##############################
+###########################################################
+#                        PLY lex part
+###########################################################
 
 tokens = ('TokenIntegerLiteral',)
 
