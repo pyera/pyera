@@ -72,7 +72,8 @@ SPキャラを使用する:NO
 FORM中の三連記号を展開しない:NO
 TIMESの計算をeramakerにあわせる:NO
 ;comment test
-no_config_test:test_value
+
+no_config_test:test_value (warning here)
 illformed test (warning here)
 ''')
         reference = (
