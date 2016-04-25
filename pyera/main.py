@@ -1,11 +1,14 @@
 import sys
 import os
-import config
-
+import pyera.unittest
+import unittest
+import pprint
+import codecs
 
 def main(rootpath):
-    import plyparser.config
-    pass
+    sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+    import pyera.unittest
+    unittest.main(module='pyera.unittest', argv=[sys.argv[0]])
 
 if __name__ == '__main__':
     try:

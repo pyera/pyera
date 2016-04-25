@@ -237,3 +237,7 @@ _Pvt_Extensions
 
 #python bytecode cache
 *.pyc
+
+#PLY cache
+parsetab.py
+parser.out

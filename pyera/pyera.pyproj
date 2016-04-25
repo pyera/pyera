@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c357b5f3-6f1c-48e6-9322-232c7fade8a7</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>pyera.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -26,26 +26,33 @@
     <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="config\localization.py" />
-    <Compile Include="config\__init__.py" />
-    <Compile Include="plyparser\common.py">
+    <Compile Include="pyera\alias.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plyparser\lexicalanalyzer.py" />
-    <Compile Include="plyparser\config.py">
+    <Compile Include="pyera\config\localization.py" />
+    <Compile Include="pyera\config\__init__.py" />
+    <Compile Include="pyera\plyparser\common.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="plyparser\__init__.py">
+    <Compile Include="pyera\plyparser\lexicalanalyzer.py" />
+    <Compile Include="pyera\plyparser\config.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="pyera.py" />
-    <Compile Include="unittest.plyparser.py">
+    <Compile Include="pyera\plyparser\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="main.py" />
+    <Compile Include="pyera\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pyera\unittest.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="config\" />
-    <Folder Include="plyparser\" />
+    <Folder Include="pyera\config\" />
+    <Folder Include="pyera\" />
+    <Folder Include="pyera\plyparser\" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

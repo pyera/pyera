@@ -2,6 +2,8 @@
 #                Localized config codes
 ###########################################################
 
+from .. import alias
+
 #these keys are usable for the substitution over the actual keynames in configurations
 CONFIG_LOCALIZATION = {
     '大文字小文字の違いを無視する': 'IgnoreCase',
@@ -90,3 +92,6 @@ CONFIG_LOCALIZATION = {
 	'PBANDの初期値': 'pbandDef',
 	'RELATIONの初期値': 'RelationDef',
 }
+
+for k, v in CONFIG_LOCALIZATION.items():
+    alias.register(k, v, 'config')
