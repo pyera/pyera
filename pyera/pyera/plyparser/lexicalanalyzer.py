@@ -61,14 +61,14 @@ class TokenIntegerLiteral(Token):
             if s[0] in ('+', '-'):
                 sign = s[0]
                 if base != 10 and sign == '-': #System.Convert.ToInt64 behavior
-                    error(LexerError(token, 'Negative integer notation is not supported for non-decimals.'))
+                    error(LexerError.from_token(token, 'Negative integer notation is not supported for non-decimals.'))
                 s = s[1:]
             #number_string extraction
             i = 0
             while i < len(s) and s[i] in {2: '0123456789', 10: '0123456789', 16: '0123456789abcdefABCDEF'}[base]:
                 #Emuera takes 2-9 in binary numbers as well, but throw errors instead.
                 if base == 2 and s[i] in '23456789':
-                    error(LexerError(token, 'Invalid digit in base 2 numbers.'))
+                    error(LexerError.from_token(token, 'Invalid digit in base 2 numbers.'))
                 i += 1
             number_string = s[:i]
             s = s[i:]
@@ -92,7 +92,7 @@ class TokenIntegerLiteral(Token):
             ret.value() #check if it is within 64 bit integer range
             return ret
         except:
-            error(LexerError(token, 'Cannot interpret as 64 bit integer.'))
+            error(LexerError.from_token(token, 'Cannot interpret as 64 bit integer.'))
 
     def value(self):
         n = int(self.sign + self.number_string, base=self.base)
@@ -107,7 +107,7 @@ def t_TokenIntegerLiteral(t):
     return t
 
 def t_error(t):
-    error(LexerError(t, 'Encountered an illegal character.'))
+    error(LexerError.from_token(t, 'Encountered an illegal character.'))
 
 #if __name__ == '__main__':
 #    lexer = ply.lex.lex()

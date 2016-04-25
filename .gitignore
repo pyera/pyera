@@ -241,3 +241,4 @@ _Pvt_Extensions
 #PLY cache
 parsetab.py
 parser.out
+pyera/env/

@@ -5,26 +5,33 @@ import ply
 ###########################################################
 
 class LexerError(SyntaxError):
-    def __init__(self, t, message):
+    def __init__(self, filename, lineno, message):
         super().__init__()
-        self.filename = getattr(t.lexer, 'filename', '<input>')
-        self.lineno = t.lineno
+        self.filename = filename
+        self.lineno = lineno
         self.msg = message
+    @staticmethod
+    def from_token(t, message):
+        return LexerError(getattr(t.lexer, 'filename', '<input>'), t.lineno, message)
+
 
 class ParserError(SyntaxError):
-    def __init__(self, p, message):
+    def __init__(self, filename, lineno, message):
         super().__init__()
-        if isinstance(p, ply.lex.LexToken):
-            self.filename = getattr(p.lexer, 'filename', '<input>')
-            self.lineno = p.lineno
-        elif p == None:
-            self.filename = '<input>'
-            self.lineno = 0
-        else:
-            self.filename = getattr(p.parser, 'filename', '<input>')
-            self.lineno = p.lineno(0)
+        self.filename = filename
+        self.lineno = lineno
         self.msg = message
-
+    @staticmethod
+    def from_token(t, message):
+        if t == None:
+            return ParserError('<input>', 0, message)
+        return ParserError(getattr(t.lexer, 'filename', '<input>'), t.lineno, message)
+    @staticmethod
+    def from_symbol(p, message):
+        if p == None:
+            return ParserError('<input>', 0, message)
+        return ParserError(getattr(p.parser, 'filename', '<input>'), p.lineno(0), message)
+    
 ###########################################################
 #            Abstract token/symbol definition
 ###########################################################
@@ -43,7 +50,7 @@ class Token:
 
     #Optional, but recommended.
     def __repr__(self):
-        return '%s()' % self.__class__
+        return '%s' % type(self).__name__
 
 class Symbol:
     #Symbols must hold valid values only.
@@ -59,15 +66,21 @@ class Symbol:
 
     #Optional, but recommended.
     def __repr__(self):
-        return '%s()' % type(self).__name__
+        return '%s' % type(self).__name__
 
 ###########################################################
 #              Default warning/error handlers
 ###########################################################
 
 def default_warning_handler(e):
-    print('%s(%d): warning: %s' % (e.filename, e.lineno, e.msg))
+    if e.lineno == 0:
+        print('%s: warning: %s' % (e.filename, e.msg))
+    else:
+        print('%s(%d): warning: %s' % (e.filename, e.lineno, e.msg))
 
 def default_error_handler(e):
-    print('%s(%d): error: %s' % (e.filename, e.lineno, e.msg))
+    if e.lineno == 0:
+        print('%s: error: %s' % (e.filename, e.msg))
+    else:
+        print('%s(%d): error: %s' % (e.filename, e.lineno, e.msg))
     raise e

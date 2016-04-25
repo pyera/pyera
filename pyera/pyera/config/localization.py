@@ -75,6 +75,8 @@ CONFIG_LOCALIZATION = {
 	'FORM中の三連記号を展開しない': 'SystemIgnoreTripleSymbol',
 	'TIMESの計算をeramakerにあわせる': 'TimesNotRigorousCalculation',
 	'キャラクタ変数の引数を補完しない': 'SystemNoTarget',
+}
+REPLACE_CONFIG_LOCALIZATION = {
 	'お金の単位': 'MoneyLabel',
 	'単位の位置': 'MoneyFirst',
 	'起動時簡略表示': 'LoadLabel',
@@ -90,8 +92,11 @@ CONFIG_LOCALIZATION = {
 	'EXPLVの初期値': 'ExpLvDef',
 	'PALAMLVの初期値': 'PalamLvDef',
 	'PBANDの初期値': 'pbandDef',
-	'RELATIONの初期値': 'RelationDef',
+	'RELATIONの初期値': 'RelationDef'
 }
 
 for k, v in CONFIG_LOCALIZATION.items():
     alias.register(k, v, 'config')
+
+for k, v in REPLACE_CONFIG_LOCALIZATION.items():
+    alias.register(k, v, 'replace_config')

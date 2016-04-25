@@ -3,6 +3,9 @@ import collections
 import typing
 import copy
 from . import localization
+from .. import filehandler
+from .. import plyparser
+
 
 ###########################################################
 #              Entry value type definitions
@@ -19,11 +22,13 @@ class char(str):
     pass
 
 class ConfigEntry:
-    def __init__(self, code, dtype, value):
+    def __init__(self, code, dtype, value, fixed = False):
         self.code = code
         self.dtype = dtype
-        self.fixed = False
         self.value = value
+        self.fixed = fixed
+    def __repr__(self):
+        return '%s<%s>(%s, %s%s)' % (type(self).__name__, self.dtype.__name__, self.code, repr(self.value), '*' if self.fixed else '')
 
 ###########################################################
 #                    Entry definitions
@@ -99,7 +104,9 @@ CONFIG_DEFAULT = (
 	ConfigEntry('CompatiFuncArgAutoConvert', bool, False),
 	ConfigEntry('SystemIgnoreTripleSymbol', bool, False),
 	ConfigEntry('TimesNotRigorousCalculation', bool, False),
-    ConfigEntry('SystemNoTarget', bool, False),
+    ConfigEntry('SystemNoTarget', bool, False)
+)
+REPLACE_CONFIG_DEFAULT = (
     ConfigEntry('MoneyLabel', str, '$'),
 	ConfigEntry('MoneyFirst', bool, True),
 	ConfigEntry('LoadLabel', str, 'Now Loading...'),
@@ -118,12 +125,21 @@ CONFIG_DEFAULT = (
 	ConfigEntry('RelationDef', int, 0)
 )
 
-def create_default_config():
-    config = {}
-    for entry in CONFIG_DEFAULT:
-        config[entry.code] = copy.copy(entry)
-    return config
-
-def load_config(path, config = None):
-    if config == None:
-        config = create_default_config()
+class Config(dict):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        #list of (filename, parsed_raw_data) tuple
+        self.parsed_config_files = []
+    @staticmethod
+    def get_default_config():
+        ret = Config()
+        for entry in CONFIG_DEFAULT:
+            ret[entry.code] = copy.copy(entry)
+        return ret
+    @staticmethod
+    def get_default_replace_config():
+        ret = Config()
+        for entry in REPLACE_CONFIG_DEFAULT:
+            ret[entry.code] = copy.copy(entry)
+        return ret
+    

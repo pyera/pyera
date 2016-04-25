@@ -12,6 +12,8 @@
     <OutputPath>.</OutputPath>
     <Name>pyera</Name>
     <RootNamespace>pyera</RootNamespace>
+    <InterpreterId>{1281e5df-0fbf-42be-b0a7-4387b944391f}</InterpreterId>
+    <InterpreterVersion>3.5</InterpreterVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +33,9 @@
     </Compile>
     <Compile Include="pyera\config\localization.py" />
     <Compile Include="pyera\config\__init__.py" />
+    <Compile Include="pyera\filehandler.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="pyera\plyparser\common.py">
       <SubType>Code</SubType>
     </Compile>
@@ -53,6 +58,19 @@
     <Folder Include="pyera\config\" />
     <Folder Include="pyera\" />
     <Folder Include="pyera\plyparser\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>{1281e5df-0fbf-42be-b0a7-4387b944391f}</Id>
+      <BaseInterpreter>{9a7a9026-48c1-4688-9d5d-e5699d47d074}</BaseInterpreter>
+      <Version>3.5</Version>
+      <Description>env (Python 64-bit 3.5)</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <LibraryPath>Lib\</LibraryPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>Amd64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
