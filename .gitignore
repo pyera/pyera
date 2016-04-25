@@ -241,4 +241,9 @@ _Pvt_Extensions
 #PLY cache
 parsetab.py
 parser.out
+
+#virtualenv
 pyera/env/
+
+#test project
+/era_test/

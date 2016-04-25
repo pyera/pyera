@@ -1,14 +1,17 @@
 import sys
 import os
-import pyera
 import unittest
 import pprint
 import codecs
 
+import pyera
+import pyera.filehandler
+import pyera.plyparser
+import pyera.plyparser.config
+
 def main(rootpath):
     if sys.stdout.encoding not in ('utf-8', 'utf8'):
         sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
-    import pyera.unittest
     unittest.main(module = 'pyera.unittest', argv = [sys.argv[0]], testRunner = unittest.TextTestRunner(stream = sys.stdout))
 
 
