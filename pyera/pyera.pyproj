@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c357b5f3-6f1c-48e6-9322-232c7fade8a7</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>lexicalanalyzer.py</StartupFile>
+    <StartupFile>pyera.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -28,11 +28,24 @@
   <ItemGroup>
     <Compile Include="config\localization.py" />
     <Compile Include="config\__init__.py" />
-    <Compile Include="lexicalanalyzer.py" />
+    <Compile Include="plyparser\common.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plyparser\lexicalanalyzer.py" />
+    <Compile Include="plyparser\config.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="plyparser\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="pyera.py" />
+    <Compile Include="unittest.plyparser.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="config\" />
+    <Folder Include="plyparser\" />
   </ItemGroup>
   <Import Condition="Exists($(PtvsTargetsFile))" Project="$(PtvsTargetsFile)" />
   <Import Condition="!Exists($(PtvsTargetsFile))" Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

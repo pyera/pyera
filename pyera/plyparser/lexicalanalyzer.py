@@ -1,24 +1,6 @@
-﻿import ply.lex, ply.yacc
+﻿from .common import *
+import ply.lex, ply.yacc
 import numpy
-
-###########################################################
-#                   Exception definitions
-###########################################################
-
-class LexerError(SyntaxError):
-    def __init__(self, t, message):
-        super().__init__()
-        self.filename = getattr(t.lexer, 'filename', None)
-        self.lineno = t.lineno
-        self.msg = message
-
-class ParserError(SyntaxError):
-    def __init__(self, p, message):
-        super().__init__()
-        self.filename = getattr(p.parser, 'filename', None)
-        self.lineno = p.lineno(0)
-        self.msg = message
-
 
 ###########################################################
 #                        PLY lex part
@@ -26,24 +8,10 @@ class ParserError(SyntaxError):
 
 tokens = ('TokenIntegerLiteral',)
 
-class Token:
-    #Tokens must hold valid values only.
-
-    #the regex pattern for the token.
-    regex = r''
-
-    #Parse input token string to token object.
-    #Raise an error if the token seems an invalid value. Otherwise return the parsed token object.
-    
-    @staticmethod
-    def from_token(token):
-        r''
-        raise NotImplementedError
-    
 class TokenIntegerLiteral(Token):
     #64-bit integer. Parsed at MinorShift.Emuera.Sub.LexicalAnalyzer.ReadInt64(StringStream st, bool retZero)
     # ** This parser is compliant only for when retZero == false. 
-    # ** The only case of retZero == true is when string-to-int internal functions are called. ( TOINT() and ISNUMERIC() )
+    # ** The only case of retZero == true is when string-to-int internal functions are called. (i.e. TOINT() and ISNUMERIC())
     # ** These can be exceptionally handled.
 
     regex = r'(0[xX][\+\-]?[0-9a-fA-F]+([pPeE][\+\-]?[0-9a-fA-F]+)?)|(0[bB][\+\-]?[0-9]+([pPeE][\+\-]?[0-9]+)?)|([\+\-]?[0-9]+([pPeE][\+\-]?[0-9]+)?)'
@@ -138,8 +106,8 @@ def t_TokenIntegerLiteral(t):
 def t_error(t):
     raise LexerError(t, 'Encountered an illegal character.')
 
-if __name__ == '__main__':
-    lexer = ply.lex.lex()
-    lexer.input('0x+FFFCp+4 a')
-    print(lexer.token().value.value())
+#if __name__ == '__main__':
+#    lexer = ply.lex.lex()
+#    lexer.input('0x+FFFCp+4 a')
+#    print(lexer.token().value.value())
 

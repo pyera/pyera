@@ -1,5 +1,7 @@
-﻿import enum, collections
+﻿import enum
+import collections
 import typing
+import copy
 from . import localization
 
 ###########################################################
@@ -115,3 +117,13 @@ CONFIG_DEFAULT = (
 	ConfigEntry('pbandDef', int, 4),
 	ConfigEntry('RelationDef', int, 0)
 )
+
+def create_default_config():
+    config = {}
+    for entry in CONFIG_DEFAULT:
+        config[entry.code] = copy.copy(entry)
+    return config
+
+def load_config(path, config = None):
+    if config == None:
+        config = create_default_config()
