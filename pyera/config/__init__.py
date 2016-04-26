@@ -4,8 +4,6 @@ import typing
 import copy
 from . import localization
 from .. import filehandler
-from .. import plyparser
-
 
 ###########################################################
 #              Entry value type definitions
@@ -125,11 +123,18 @@ REPLACE_CONFIG_DEFAULT = (
 	ConfigEntry('RelationDef', int, 0)
 )
 
+###########################################################
+#        Config object and global instance definitions
+###########################################################
+
+#corresponds to MinorShift.Emuera.ConfigData
 class Config(dict):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         #list of (filename, parsed_raw_data) tuple
         self.parsed_config_files = []
+    def __call__(self, k):
+        return self[k].value
     @staticmethod
     def get_default_config():
         ret = Config()
@@ -142,4 +147,4 @@ class Config(dict):
         for entry in REPLACE_CONFIG_DEFAULT:
             ret[entry.code] = copy.copy(entry)
         return ret
-    
+

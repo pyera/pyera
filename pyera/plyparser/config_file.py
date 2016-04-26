@@ -167,7 +167,7 @@ def set_config_entry_value(configentry, v):
             configentry.value = False
             return True
         elif v in ('YES', 'TRUE', '前'):
-            configentry.value = False
+            configentry.value = True
             return True
         else:
             raise ValueError
@@ -190,14 +190,17 @@ def set_config_entry_value(configentry, v):
         configentry.value = v
         return True
     elif configentry.dtype == int:
-        return int(v)
+        configentry.value = int(v)
+        return True
     elif configentry.dtype == str:
-        return v
+        configentry.value = v
+        return True
     elif configentry.dtype == typing.List[int]:
         #Bug in Emuera1821: it will set the value to the point where parse is successful.
         configentry.value = []
         for segment in v.split('/'):
             configentry.value.append(int(segment.strip()))
+        return True
     elif type(configentry.dtype) == enum.EnumMeta:
         configentry.value = configentry.dtype[v]
         return True

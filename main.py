@@ -6,8 +6,9 @@ import codecs
 
 import pyera
 import pyera.filehandler
+import pyera.unittest
 import pyera.plyparser
-import pyera.plyparser.config
+import pyera.plyparser.config_file
 
 def main(rootpath):
     if sys.stdout.encoding not in ('utf-8', 'utf8'):

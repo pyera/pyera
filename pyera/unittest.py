@@ -1,11 +1,19 @@
 ﻿import unittest
 import pprint
-from .plyparser import parse, config
+import os
+from .plyparser import parse, config_file
+from . import process
+
+class TestProcess(unittest.TestCase):
+    def test_process(self):
+        if not os.path.isdir('era_test'):
+            return
+        process.Process('era_test')
 
 class TestConfig(unittest.TestCase):
     def test_config(self):
         '''Config parser test. Must show two warnings.'''
-        parse_result = parse(config,
+        parse_result = parse(config_file,
 r'''大文字小文字の違いを無視する:YES
 _Rename.csvを利用する:YES
 _Replace.csvを利用する:YES
@@ -77,25 +85,25 @@ no_config_test:test_value (warning here)
 illformed test (warning here)
 ''')
         reference = (
-'''{'AllowFunctionOverloading': ConfigEntry<bool>(AllowFunctionOverloading, False),
+'''{'AllowFunctionOverloading': ConfigEntry<bool>(AllowFunctionOverloading, True),
  'AllowLongInputByMouse': ConfigEntry<bool>(AllowLongInputByMouse, False),
  'AllowMultipleInstances': ConfigEntry<bool>(AllowMultipleInstances, False),
- 'AutoSave': ConfigEntry<bool>(AutoSave, False),
+ 'AutoSave': ConfigEntry<bool>(AutoSave, True),
  'BackColor': ConfigEntry<Color>(BackColor, Color(r=0, g=0, b=0)),
- 'ButtonWrap': ConfigEntry<bool>(ButtonWrap, False),
+ 'ButtonWrap': ConfigEntry<bool>(ButtonWrap, True),
  'ChangeMasterNameIfDebug': ConfigEntry<bool>(ChangeMasterNameIfDebug, True),
  'CompatiCALLNAME': ConfigEntry<bool>(CompatiCALLNAME, False),
  'CompatiCallEvent': ConfigEntry<bool>(CompatiCallEvent, False),
  'CompatiDRAWLINE': ConfigEntry<bool>(CompatiDRAWLINE, False),
  'CompatiErrorLine': ConfigEntry<bool>(CompatiErrorLine, False),
- 'CompatiFuncArgAutoConvert': ConfigEntry<bool>(CompatiFuncArgAutoConvert, False),
- 'CompatiFuncArgOptional': ConfigEntry<bool>(CompatiFuncArgOptional, False),
+ 'CompatiFuncArgAutoConvert': ConfigEntry<bool>(CompatiFuncArgAutoConvert, True),
+ 'CompatiFuncArgOptional': ConfigEntry<bool>(CompatiFuncArgOptional, True),
  'CompatiFunctionNoignoreCase': ConfigEntry<bool>(CompatiFunctionNoignoreCase, False),
  'CompatiLinefeedAs1739': ConfigEntry<bool>(CompatiLinefeedAs1739, False),
  'CompatiRAND': ConfigEntry<bool>(CompatiRAND, False),
  'CompatiSPChara': ConfigEntry<bool>(CompatiSPChara, False),
  'DisplayReport': ConfigEntry<bool>(DisplayReport, False),
- 'DisplayWarningLevel': ConfigEntry<int>(DisplayWarningLevel, 1),
+ 'DisplayWarningLevel': ConfigEntry<int>(DisplayWarningLevel, 0),
  'EditorArgument': ConfigEntry<str>(EditorArgument, ''),
  'EditorType': ConfigEntry<TextEditorType>(EditorType, <TextEditorType.USER_SETTING: 4>),
  'FPS': ConfigEntry<int>(FPS, 5),
@@ -105,7 +113,7 @@ illformed test (warning here)
  'ForeColor': ConfigEntry<Color>(ForeColor, Color(r=192, g=192, b=192)),
  'FunctionNotCalledWarning': ConfigEntry<DisplayWarningFlag>(FunctionNotCalledWarning, <DisplayWarningFlag.IGNORE: 1>),
  'FunctionNotFoundWarning': ConfigEntry<DisplayWarningFlag>(FunctionNotFoundWarning, <DisplayWarningFlag.DISPLAY: 4>),
- 'IgnoreCase': ConfigEntry<bool>(IgnoreCase, False),
+ 'IgnoreCase': ConfigEntry<bool>(IgnoreCase, True),
  'IgnoreUncalledFunction': ConfigEntry<bool>(IgnoreUncalledFunction, False),
  'InfiniteLoopAlertTime': ConfigEntry<int>(InfiniteLoopAlertTime, 5000),
  'LastKey': ConfigEntry<int>(LastKey, 0),
@@ -117,35 +125,36 @@ illformed test (warning here)
  'ReduceArgumentOnLoad': ConfigEntry<ReduceArgumentOnLoadFlag>(ReduceArgumentOnLoad, <ReduceArgumentOnLoadFlag.YES: 1>),
  'SaveDataNos': ConfigEntry<int>(SaveDataNos, 20),
  'ScrollHeight': ConfigEntry<int>(ScrollHeight, 1),
- 'SearchSubdirectory': ConfigEntry<bool>(SearchSubdirectory, False),
- 'SetWindowPos': ConfigEntry<bool>(SetWindowPos, False),
- 'SizableWindow': ConfigEntry<bool>(SizableWindow, False),
+ 'SearchSubdirectory': ConfigEntry<bool>(SearchSubdirectory, True),
+ 'SetWindowPos': ConfigEntry<bool>(SetWindowPos, True),
+ 'SizableWindow': ConfigEntry<bool>(SizableWindow, True),
  'SkipFrame': ConfigEntry<int>(SkipFrame, 3),
- 'SortWithFilename': ConfigEntry<bool>(SortWithFilename, False),
+ 'SortWithFilename': ConfigEntry<bool>(SortWithFilename, True),
  'SystemAllowFullSpace': ConfigEntry<bool>(SystemAllowFullSpace, False),
  'SystemIgnoreTripleSymbol': ConfigEntry<bool>(SystemIgnoreTripleSymbol, False),
  'SystemNoTarget': ConfigEntry<bool>(SystemNoTarget, False),
  'SystemSaveInBinary': ConfigEntry<bool>(SystemSaveInBinary, False),
- 'SystemSaveInUTF8': ConfigEntry<bool>(SystemSaveInUTF8, False),
+ 'SystemSaveInUTF8': ConfigEntry<bool>(SystemSaveInUTF8, True),
  'TextDrawingMode': ConfigEntry<TextDrawingMode>(TextDrawingMode, <TextDrawingMode.WINAPI: 3>),
- 'TextEditor': ConfigEntry<str>(TextEditor, 'notepad'),
+ 'TextEditor': ConfigEntry<str>(TextEditor, 'notepad:test2:test3'),
  'TimesNotRigorousCalculation': ConfigEntry<bool>(TimesNotRigorousCalculation, False),
- 'UseDebugCommand': ConfigEntry<bool>(UseDebugCommand, False),
- 'UseKeyMacro': ConfigEntry<bool>(UseKeyMacro, False),
- 'UseMenu': ConfigEntry<bool>(UseMenu, False),
- 'UseMouse': ConfigEntry<bool>(UseMouse, False),
- 'UseRenameFile': ConfigEntry<bool>(UseRenameFile, False),
- 'UseReplaceFile': ConfigEntry<bool>(UseReplaceFile, False),
- 'UseSaveFolder': ConfigEntry<bool>(UseSaveFolder, False),
+ 'UseDebugCommand': ConfigEntry<bool>(UseDebugCommand, True),
+ 'UseKeyMacro': ConfigEntry<bool>(UseKeyMacro, True),
+ 'UseMenu': ConfigEntry<bool>(UseMenu, True),
+ 'UseMouse': ConfigEntry<bool>(UseMouse, True),
+ 'UseRenameFile': ConfigEntry<bool>(UseRenameFile, True),
+ 'UseReplaceFile': ConfigEntry<bool>(UseReplaceFile, True),
+ 'UseSaveFolder': ConfigEntry<bool>(UseSaveFolder, True),
  'WarnBackCompatibility': ConfigEntry<bool>(WarnBackCompatibility, False),
- 'WarnFunctionOverloading': ConfigEntry<bool>(WarnFunctionOverloading, False),
+ 'WarnFunctionOverloading': ConfigEntry<bool>(WarnFunctionOverloading, True),
  'WarnNormalFunctionOverloading': ConfigEntry<bool>(WarnNormalFunctionOverloading, False),
  'WindowMaximixed': ConfigEntry<bool>(WindowMaximixed, False),
- 'WindowPosX': ConfigEntry<int>(WindowPosX, 0),
- 'WindowPosY': ConfigEntry<int>(WindowPosY, 0),
- 'WindowX': ConfigEntry<int>(WindowX, 760),
- 'WindowY': ConfigEntry<int>(WindowY, 480),
+ 'WindowPosX': ConfigEntry<int>(WindowPosX, 21),
+ 'WindowPosY': ConfigEntry<int>(WindowPosY, 31),
+ 'WindowX': ConfigEntry<int>(WindowX, 1200),
+ 'WindowY': ConfigEntry<int>(WindowY, 900),
  'useLanguage': ConfigEntry<UseLanguage>(useLanguage, <UseLanguage.KOREAN: 2>)}''')
+        #print(pprint.pformat(parse_result,indent=1, width=80))
         self.assertEqual(pprint.pformat(parse_result,indent=1, width=80), reference)
 
 

@@ -44,13 +44,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="pyera\plyparser\lexicalanalyzer.py" />
-    <Compile Include="pyera\plyparser\config.py">
+    <Compile Include="pyera\plyparser\config_file.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="pyera\plyparser\__init__.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="main.py" />
+    <Compile Include="pyera\process.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="pyera\__init__.py">
       <SubType>Code</SubType>
     </Compile>
