@@ -133,8 +133,9 @@ class Config(dict):
         super().__init__(*args, **kwargs)
         #list of (filename, parsed_raw_data) tuple
         self.parsed_config_files = []
+        self.runtime_config = {}
     def __call__(self, k):
-        return self[k].value
+        return self.runtime_config.get(k, self[k].value)
     @staticmethod
     def get_default_config():
         ret = Config()

@@ -40,6 +40,21 @@
     <Compile Include="pyera\filehandler.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="pyera\locale\ja_JP.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pyera\locale\ko_KR.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pyera\locale\zh_HANS.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pyera\locale\zh_HANT.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="pyera\locale\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="pyera\plyparser\common.py">
       <SubType>Code</SubType>
     </Compile>
@@ -64,6 +79,7 @@
   <ItemGroup>
     <Folder Include="pyera\config\" />
     <Folder Include="pyera\" />
+    <Folder Include="pyera\locale\" />
     <Folder Include="pyera\plyparser\" />
   </ItemGroup>
   <ItemGroup>

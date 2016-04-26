@@ -154,7 +154,6 @@ illformed test (warning here)
  'WindowX': ConfigEntry<int>(WindowX, 1200),
  'WindowY': ConfigEntry<int>(WindowY, 900),
  'useLanguage': ConfigEntry<UseLanguage>(useLanguage, <UseLanguage.KOREAN: 2>)}''')
-        #print(pprint.pformat(parse_result,indent=1, width=80))
         self.assertEqual(pprint.pformat(parse_result,indent=1, width=80), reference)
 
 
