@@ -5,16 +5,21 @@ on:
   schedule:
     - cron: '0 * * * *' # الجدولة للعمل كل ساعة تماماً على مدار الـ 24 ساعة
 
+# تحديد تشغيل واحد في نفس الوقت مع حد أقصى تشغيل واحد فقط في الانتظار
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   execute-nodes:
     name: Worker-Instance [${{ matrix.node_index }}]
     runs-on: windows-2022
-    timeout-minutes: 75 # تم زيادة مدة الجلسة الكلية إلى 80 دقيقة لتستوعب الساعة وربع براحة
+    timeout-minutes: 75 # تم زيادة مدة الجلسة الكلية لتستوعب المدة براحة
     
     strategy:
       fail-fast: false
       matrix:
-        node_index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] # تشغيل 10 نسخ في نفس الوقت
+        node_index: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20] # تشغيل 20 نسخة بالتوازي
 
     steps:
       # ---------------------------------------------------------
@@ -64,7 +69,7 @@ jobs:
           
           try {
               # انتظار انتهاء العملية أو وصولها للحد الزمني (4440 ثانية = 74 دقيقة)
-              # نستخدم 74 دقيقة ليتمكن السكريبت من الإغلاق بسلاسة قبل انتهاء الـ 80 دقيقة
+              # نستخدم 74 دقيقة ليتمكن السكريبت من الإغلاق بسلاسة قبل انتهاء الـ 75 دقيقة
               Wait-Process -InputObject $activeProcess -Timeout 4440 -ErrorAction Stop
               Write-Output "[SUCCESS] Task completed within limits."
           } 
